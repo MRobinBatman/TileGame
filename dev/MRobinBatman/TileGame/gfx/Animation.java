@@ -1,0 +1,37 @@
+package dev.MRobinBatman.TileGame.gfx;
+
+import java.awt.image.BufferedImage;
+
+public class Animation {
+
+	private int speed, index;
+	private BufferedImage[] frames;
+	private long lastTime;
+	long timer;
+
+	public Animation(int speed, BufferedImage[] frames) {
+		this.speed = speed;
+		this.frames = frames;
+		index = 0;
+		timer = 0;
+		lastTime = System.currentTimeMillis(); // gets milisecs since program started
+	}
+
+	public void tick() {
+		timer += System.currentTimeMillis() - lastTime; // gets us the time that has passed between tics and adds it to
+														// the timer
+		lastTime = System.currentTimeMillis();
+		
+		if(timer > speed) {
+			index++;
+			timer = 0;
+			if(index>=frames.length) {
+				index =0;
+			}
+		}
+	}
+
+	public BufferedImage getCurrentFrame() {
+		return frames[index];
+	}
+}
